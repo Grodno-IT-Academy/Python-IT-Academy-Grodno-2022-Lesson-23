@@ -6,8 +6,7 @@ name = "pypi"
 [packages]
 django = "4.0.3"
 pillow = "*"
-uwsgi = "*"
-psycopg2 = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
