@@ -1,0 +1,13 @@
+{% extends 'polls/base.html' %}
+{% block Title %}{{ question.question_text }}{% endblock %}
+{% block Body %}
+    <form action="" method="post" >
+        {% csrf_token %}
+        <fieldset>
+            <legend>Are you sure?</legend>
+            <p>Are you sure you want to delete poll: {{ question.question_text }}</p>
+            <input type="submit" value="Delete">
+            <input type="button" onclick="location.href='{% url 'polls:detail' question.id %}'" value="Cancel">
+        </fieldset>
+    </form>
+{% endblock %}

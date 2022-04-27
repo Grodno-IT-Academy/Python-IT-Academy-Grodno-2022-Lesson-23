@@ -1,0 +1,34 @@
+{% extends 'polls/base.html' %}
+{% block Title %}{{ question.question_text }} Detail{% endblock %}
+{% block Body %}
+<form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>{{ question.question_text }}</h1></legend>
+        {%  if error_message %}
+            <p style="color: red"><strong>{{ error_message }}</strong></p>
+        {% endif %}
+        {% for choice in question.choice_set.all %}
+            <label for="choice{{ forloop.counter }}">
+                <input type="radio" id="choice{{ forloop.counter }}" name="choice" value="{{ choice.id }}">
+                {{ choice.choice_text }}
+            </label>
+            </br>
+        {% endfor %}
+        <input type="submit" value="Vote">
+    </fieldset>
+</form>
+    {% if question.author == request.user %}
+        <button type="button" onclick="location.href='{% url 'polls:update' question.id %}'">Update Question</button>
+    {% endif %}
+<a href="{% url 'polls:results' question.id %}">See Results</a>
+    <form action="{% url 'polls:add_choice' question.id %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h2>Add Choice</h2></legend>
+            <label for="choice_text">Choice:</label>
+            <input type="text" name="choice_text" id="choice_text" placeholder="new choice">
+            <input type="submit" value="Add Choice">
+        </fieldset>
+    </form>
+{% endblock %}

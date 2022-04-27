@@ -1,0 +1,21 @@
+{%  extends 'authentication/base.html' %}
+{% block Title %}Registration{% endblock %}
+{% block Body %}
+    <form method="post" action="">
+        <fieldset>
+            <legend>Register</legend>
+            {% csrf_token %}
+            {% if form.errors %}
+                <p style="color: orangered">Got errors! {{ form.errors }}</p>
+            {% endif %}
+            {% for message in messages %}
+                <p style="color: turquoise">{{ message }}</p>
+            {% endfor %}
+            <p>{{ form.username }} {{ form.username.label }}</p>
+            <p>{{ form.email }} {{ form.email.label }}</p>
+            <p>{{ form.password1 }} {{ form.password1.label }}</p>
+            <p>{{ form.password2 }} {{ form.password2.label }}</p>
+            <input type="submit" value="Register">
+        </fieldset>
+    </form>
+{% endblock %}

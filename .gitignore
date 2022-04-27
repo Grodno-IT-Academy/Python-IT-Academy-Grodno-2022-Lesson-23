@@ -1,0 +1,8 @@
+.DS_Store
+.ipynb_checkpoints
+.idea
+demo/db.sqlite3
+Pipfile.lock
+__pycache__
+.env
+db_data

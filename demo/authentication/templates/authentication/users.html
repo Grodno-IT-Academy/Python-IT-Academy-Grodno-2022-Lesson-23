@@ -1,0 +1,11 @@
+{% extends 'polls/base.html' %}
+{% block Title %}Users{% endblock %}
+{% block Body %}
+    {% if user_list %}
+        <ul>
+            {% for profile in user_list %}
+                <li>{{ profile.user.username }}<a href="{{ profile.get_absolute_url }}">Open</a> </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
