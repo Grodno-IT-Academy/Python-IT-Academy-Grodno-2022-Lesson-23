@@ -11,11 +11,11 @@
             {% for message in messages %}
                 <p style="color: turquoise">{{ message }}</p>
             {% endfor %}
-            <p>{{ form.username }} {{ form.username.label }}</p>
-            <p>{{ form.email }} {{ form.email.label }}</p>
-            <p>{{ form.password1 }} {{ form.password1.label }}</p>
-            <p>{{ form.password2 }} {{ form.password2.label }}</p>
-            <input type="submit" value="Register">
+            <p>{{ form.username.label }} {{ form.username }} </p>
+            <p>{{ form.email.label }} {{ form.email }} </p>
+            <p>{{ form.password1.label }} {{ form.password1 }}</p>
+            <p>{{ form.password2.label }} {{ form.password2 }}</p>
+            <input type="submit" class="btn btn-warning" value="Register">
         </fieldset>
     </form>
 {% endblock %}

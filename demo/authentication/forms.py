@@ -6,3 +6,6 @@ class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
+class CheckCustomerForm(forms.Form):
+        codeword = forms.CharField(max_length=16, label='codeword')

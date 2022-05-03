@@ -1,0 +1,31 @@
+{% extends 'polls/base.html' %}
+{% block Title %}Customer registration{% endblock %}
+{% block Body %}
+    <br>
+    <strong>User Name:</strong>{{ profile.user.username }}
+    <br>
+    <strong>Request method:</strong>{{ method }}
+    <br>
+    <!-- statistics -->
+    <strong>Groups: </strong> {{ groupstring }}
+    <br>
+    {{ group }}
+{% if groupstring == "user" %}
+     <br>
+    <form action="" method="post">
+        <fieldset>
+            <legend>Upgrade your profile to Customer</legend>
+            {% csrf_token %}
+            {% if form.errors %}
+                <p style="color: orangered">Got errors! {{ form.errors }}</p>
+            {% endif %}
+            {% for message in messages %}
+                <p style="color: turquoise">{{ message }}</p>
+            {% endfor %}
+            <p>{{ form.codeword.label }} {{ form.codeword }} </p>
+            <input type="submit" class="btn btn-warning" value="Check codeword">
+        </fieldset>
+    </form>
+{% endif %}
+
+{% endblock %}

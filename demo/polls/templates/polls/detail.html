@@ -1,34 +1,81 @@
 {% extends 'polls/base.html' %}
-{% block Title %}{{ question.question_text }} Detail{% endblock %}
+{% block Title %}{{ urlentry.url_short }} Detail{% endblock %}
 {% block Body %}
-<form action="{% url 'polls:vote' question.id %}" method="post">
-    {% csrf_token %}
-    <fieldset>
-        <legend><h1>{{ question.question_text }}</h1></legend>
-        {%  if error_message %}
-            <p style="color: red"><strong>{{ error_message }}</strong></p>
-        {% endif %}
-        {% for choice in question.choice_set.all %}
-            <label for="choice{{ forloop.counter }}">
-                <input type="radio" id="choice{{ forloop.counter }}" name="choice" value="{{ choice.id }}">
-                {{ choice.choice_text }}
-            </label>
-            </br>
-        {% endfor %}
-        <input type="submit" value="Vote">
-    </fieldset>
-</form>
-    {% if question.author == request.user %}
-        <button type="button" onclick="location.href='{% url 'polls:update' question.id %}'">Update Question</button>
-    {% endif %}
-<a href="{% url 'polls:results' question.id %}">See Results</a>
-    <form action="{% url 'polls:add_choice' question.id %}" method="post">
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<h1><a href="http://localhost:8000/{{ urlentry.url_short }}">
+            http://localhost:8000/{{ urlentry.url_short }}
+                       </a>
+        </h1>
+<div id="qrcode"></div>
+<script type="text/javascript">
+var qrcode = new QRCode(document.getElementById("qrcode"), {
+	text: "http://localhost:8000/{{ urlentry.url_short }}",
+	width: 100,
+	height: 100,
+	colorDark : "#5868bf",
+	colorLight : "#ffffff",
+	correctLevel : QRCode.CorrectLevel.H
+});
+</script>
+<br>
+<!--<form action="{% url 'polls:vote' urlentry.id %}" method="post">-->
+<!--    {% csrf_token %}-->
+<!--    <fieldset>-->
+<!--        <legend></legend>-->
+<!--        {%  if error_message %}-->
+<!--            <p style="color: red"><strong>{{ error_message }}</strong></p>-->
+<!--        {% endif %}-->
+
+<!--        {% for choice in question.choice_set.all %}-->
+<!--            <label for="choice{{ forloop.counter }}">-->
+<!--                <input type="radio" id="choice{{ forloop.counter }}" name="choice" value="{{ choice.id }}">-->
+<!--                {{ choice.choice_text }}-->
+<!--            </label>-->
+<!--            </br>-->
+<!--        {% endfor %}-->
+<!--        <input type="submit" class="btn btn-danger" value="Vote">-->
+<!--    </fieldset>-->
+<!--</form>-->
+{% if urlentry.author == request.user %}
+<button type="button" onclick="location.href='{% url 'polls:results' urlentry.id %}'" class="btn btn-warning">
+See statistics of following this link
+   </button>
+{% endif %}
+    <form action="{% url 'polls:add_choice' urlentry.id %}" method="post">
         {% csrf_token %}
+        <br>
         <fieldset>
-            <legend><h2>Add Choice</h2></legend>
-            <label for="choice_text">Choice:</label>
-            <input type="text" name="choice_text" id="choice_text" placeholder="new choice">
-            <input type="submit" value="Add Choice">
+            <legend><h2>Link content</h2></legend>
+            <label><strong>Author: </strong>{{ urlentry.author }}</label> <br>
+            <label><strong>Create date: </strong>{{ urlentry.create_date }}</label> <br>
+            <label><strong>URL: </strong>
+                {% if urlentry.author == request.user %}
+                <input type="text" name="url_text" id="url_text" value="{{ urlentry.url_text }}">
+                {% endif %}
+                <a href="{{ urlentry.url_text }}">Go original Link!</a></label>
+            <br>
+             <label><strong>QR code to original link: </strong> <a href={{ urlentry.qr_code }}>generate</a></label> <br>
+           <br>
+              {% if urlentry.author == request.user %}
+
+            <legend><h2>Customer section</h2></legend>
+            <label><strong>Snapshot: </strong> <a href={{ urlentry.snapshot }}>take</a></label> <br>
+            <label><strong>Partner ads: </strong>
+                <input type="text" name="partner_ads" id="partner_ads" value="{{ urlentry.partner_ads }}">
+          </label>
+            <br>
+            <label><strong>Link available from: </strong>
+               <input type="text" name="datetime_available_from" id="datetime_available_from" value="{{ urlentry.datetime_available_from }}">
+            </label>
+             <br>
+            <label><strong>Link available to: </strong>
+             <input type="text" name="datetime_available_to" id="datetime_available_to" value="{{ urlentry.datetime_available_to }}">
+                </label>
+
         </fieldset>
+        {% endif %}
+        {% if urlentry.author == request.user %}
+        <button type="button" class="btn btn-danger" onclick="location.href='{% url 'polls:update' urlentry.id %}'">Update Link</button>
+        {% endif %}
     </form>
 {% endblock %}
