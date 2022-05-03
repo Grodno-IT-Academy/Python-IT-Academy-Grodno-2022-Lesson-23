@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light">
+<nav class="navbar navbar-expand-md navbar-light" style="background-color: #e8b320;">
   <div class="container container-fluid">
-    <a class="navbar-brand" href="#">Polls App</a>
+    <a class="navbar-brand" href="#">URL shortener</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -16,17 +16,17 @@
         {% endif %}
         {% if request.user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'polls:new' %}">New Poll</a>
+                <a class="nav-link" href="{% url 'polls:new' %}">New Link</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'auth:profile' request.user.profile.id %}">Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'auth:logout' %}">Log Out</a>
+                <a class="nav-link" href="{% url 'auth:logout' %}">Logout</a>
             </li>
         {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'auth:login' %}">Log In</a>
+                <a class="nav-link" href="{% url 'auth:login' %}">Login</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'auth:reg' %}">Register</a>

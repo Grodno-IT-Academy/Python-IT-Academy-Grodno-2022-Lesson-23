@@ -4,7 +4,7 @@
     {% if user_list %}
         <ul>
             {% for profile in user_list %}
-                <li>{{ profile.user.username }}<a href="{{ profile.get_absolute_url }}">Open</a> </li>
+                <li>{{ profile.user.username }} [{{ profile.user.email }}] <button type="button" class="btn btn-warning"><a href="{{ profile.get_absolute_url }}">Open</a></button> </li>
             {% endfor %}
         </ul>
     {% endif %}

@@ -13,6 +13,31 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Urlentry',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('create_date', models.DateTimeField(auto_now=True, verbose_name='date created')),
+                ('url_text', models.TextField(verbose_name='long URL text')),
+                ('url_id', models.BigIntegerField(verbose_name='URL index')),
+                ('url_short', models.CharField(max_length=7)),
+                ('snapshot', models.TextField(verbose_name='website snapshot path')),
+                ('qr_code', models.TextField(verbose_name='qr code code for insertion')),
+                ('partner_ads', models.TextField(verbose_name='code for invoking of partner ads')),
+                ('datetime_available_from', models.DateTimeField(auto_now=False, verbose_name='URL available from')),
+                ('datetime_available_to', models.DateTimeField(auto_now=False, verbose_name='URL available to')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Leads',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('follower_info', models.TextField(verbose_name='follower info')),
+                ('follow_date', models.DateTimeField(auto_now=True, verbose_name='date when link followed')),
+                ('follower_os_info', models.TextField(verbose_name='follower OS info')),
+                ('follower_fromwhere', models.TextField(verbose_name='follower fromwhere')),
+            ],
+        ),
+        migrations.CreateModel(
             name='Question',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
